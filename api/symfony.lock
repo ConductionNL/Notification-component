@@ -28,6 +28,9 @@
     "composer/ca-bundle": {
         "version": "1.2.6"
     },
+    "composer/package-versions-deprecated": {
+        "version": "1.11.99"
+    },
     "composer/semver": {
         "version": "1.5.0"
     },
@@ -299,6 +302,9 @@
     "sumup/sumup-ecom-php-sdk": {
         "version": "1.0.2"
     },
+    "symfony/amqp-messenger": {
+        "version": "v5.1.9"
+    },
     "symfony/asset": {
         "version": "v4.3.1"
     },
@@ -335,6 +341,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v4.3.1"
+    },
+    "symfony/doctrine-messenger": {
+        "version": "v5.1.9"
     },
     "symfony/dom-crawler": {
         "version": "v4.3.4"
@@ -433,6 +442,18 @@
             "config/packages/mercure.yaml"
         ]
     },
+    "symfony/messenger": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "e9a414b113ceadbf4e52abe37bf8f1b443f06ccb"
+        },
+        "files": [
+            "config/packages/messenger.yaml"
+        ]
+    },
     "symfony/mime": {
         "version": "v4.3.1"
     },
@@ -477,6 +498,9 @@
     },
     "symfony/property-info": {
         "version": "v4.3.1"
+    },
+    "symfony/redis-messenger": {
+        "version": "v5.1.9"
     },
     "symfony/routing": {
         "version": "4.2",

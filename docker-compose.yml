@@ -221,6 +221,9 @@ services:
 
   redis:
     image: redis:4-alpine
+    
+  rabbitmq:
+    image: rabbitmq:latest
 
   # From: tsgkadot/docker-doxygen    
   sphinx:
