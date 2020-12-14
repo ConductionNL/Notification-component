@@ -3,35 +3,22 @@ entries:
   nrc:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2020-12-14T09:14:15.7435022Z"
+    created: "2020-12-14T10:55:53.4810359Z"
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
-    digest: 514583d4eca9fd5f927609b6c549c5f2bc7ddea69da951d83589169d0573940c
+    digest: b311e4f90c4c8a101e8472ebca92044b16960e40d23aeb6dd95edcff6c109b35
     home: nrc.zaakonline.nl
     icon: nrc.zaakonline.nl
     name: nrc
     urls:
     - nrc-0.1.0.tgz
     version: 0.1.0
-  pc:
-  - apiVersion: v1
-    appVersion: V1.0
-    created: "2020-12-14T09:14:15.7638303Z"
-    description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
-      beschikbaar.
-    digest: 656e81d179f076d59766951131ab79d95e8e7ac88cd9a0e727bfbdef652cfe09
-    home: pc.zaakonline.nl
-    icon: pc.zaakonline.nl
-    name: pc
-    urls:
-    - pc-0.1.0.tgz
-    version: 0.1.0
   postgresql:
   - annotations:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2020-12-14T09:14:15.7773308Z"
+    created: "2020-12-14T10:55:53.4951814Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -60,4 +47,4 @@ entries:
     urls:
     - charts/postgresql-10.1.1.tgz
     version: 10.1.1
-generated: "2020-12-14T09:14:15.5735981Z"
+generated: "2020-12-14T10:55:53.4645917Z"
