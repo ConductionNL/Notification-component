@@ -1,16 +1,16 @@
 openapi: 3.0.2
 info:
-  title: 'Proto component commonground'
+  title: 'Notification Component'
   version: V1.0
   description: |
     API Details
-    - Component: Proto component commonground
-    - Reference: pc
+    - Component: Notification Component
+    - Reference: nrc
     - Enviroment: dev
     - Version: V1.0
     - Repository: [online](https://github.com/ConductionNL/proto-component) / [zip](https://github.com/ConductionNL/proto-component/archive/master.zip)
-    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/pc-php) 
-    - Datamodel: [postman](schema/pc.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
+    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/nrc-php) 
+    - Datamodel: [postman](schema/nrc.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
     
     Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
     
@@ -1942,6 +1942,1919 @@ paths:
             schema:
               $ref: '#/components/schemas/ChangeLog-write'
         description: 'The updated ChangeLog resource'
+  /notifications:
+    get:
+      tags:
+        - Notification
+      operationId: getNotificationCollection
+      summary: 'Retrieves the collection of Notification resources.'
+      responses:
+        200:
+          description: 'Notification collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Notification:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/json+ld:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Notification:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification-read'
+            application/json+hal:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification-read'
+            application/json+vnd.api:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification-read'
+            application/health+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification-read'
+            application/json+health:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification-read'
+      parameters:
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[topic]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[routingKey]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[resource]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[action]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: resource
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'resource[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: limit
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+    post:
+      tags:
+        - Notification
+      operationId: postNotificationCollection
+      summary: 'Creates a Notification resource.'
+      responses:
+        201:
+          description: 'Notification resource created'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Notification:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Notification:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+          links:
+            GetNotificationItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getNotificationItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /notifications/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Notification:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Notification:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+        description: 'The new Notification resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/notifications/{id}':
+    get:
+      tags:
+        - Notification
+      operationId: getNotificationItem
+      summary: 'Retrieves a Notification resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Notification resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Notification:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Notification:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+    put:
+      tags:
+        - Notification
+      operationId: putNotificationItem
+      summary: 'Replaces the Notification resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Notification resource updated'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Notification:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Notification:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Notification:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Notification:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Notification-write'
+        description: 'The updated Notification resource'
+    delete:
+      tags:
+        - Notification
+      operationId: deleteNotificationItem
+      summary: 'Removes the Notification resource.'
+      responses:
+        204:
+          description: 'Notification resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/notifications/{id}/audit_trail':
+    get:
+      tags:
+        - Notification
+      operationId: get_audit_trailNotificationItem
+      summary: 'Retrieves a Notification resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Notification resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Notification:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Notification:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+  '/notifications/{id}/change_log':
+    get:
+      tags:
+        - Notification
+      operationId: get_change_logsNotificationItem
+      summary: 'Retrieves a Notification resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Notification resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Notification:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Notification:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Notification-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+  /subscriptions:
+    get:
+      tags:
+        - Subscription
+      operationId: getSubscriptionCollection
+      summary: 'Retrieves the collection of Subscription resources.'
+      responses:
+        200:
+          description: 'Subscription collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Subscription:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/json+ld:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Subscription:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription-read'
+            application/json+hal:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription-read'
+            application/json+vnd.api:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription-read'
+            application/health+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription-read'
+            application/json+health:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription-read'
+      parameters:
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[callback]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[secret]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[topic]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: limit
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+    post:
+      tags:
+        - Subscription
+      operationId: postSubscriptionCollection
+      summary: 'Creates a Subscription resource.'
+      responses:
+        201:
+          description: 'Subscription resource created'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Subscription:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Subscription:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+          links:
+            GetSubscriptionItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getSubscriptionItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /subscriptions/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Subscription:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Subscription:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+        description: 'The new Subscription resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/subscriptions/{id}':
+    get:
+      tags:
+        - Subscription
+      operationId: getSubscriptionItem
+      summary: 'Retrieves a Subscription resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Subscription resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Subscription:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Subscription:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+    put:
+      tags:
+        - Subscription
+      operationId: putSubscriptionItem
+      summary: 'Replaces the Subscription resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Subscription resource updated'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Subscription:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Subscription:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Subscription:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Subscription:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Subscription-write'
+        description: 'The updated Subscription resource'
+    delete:
+      tags:
+        - Subscription
+      operationId: deleteSubscriptionItem
+      summary: 'Removes the Subscription resource.'
+      responses:
+        204:
+          description: 'Subscription resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/subscriptions/{id}/audit_trail':
+    get:
+      tags:
+        - Subscription
+      operationId: get_audit_trailSubscriptionItem
+      summary: 'Retrieves a Subscription resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Subscription resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Subscription:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Subscription:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+  '/subscriptions/{id}/change_log':
+    get:
+      tags:
+        - Subscription
+      operationId: get_change_logsSubscriptionItem
+      summary: 'Retrieves a Subscription resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Subscription resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Subscription:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Subscription:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Subscription-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
 components:
   schemas:
     AuditTrail-read:
@@ -2334,7 +4247,392 @@ components:
         '@type':
           readOnly: true
           type: string
+    Notification-read:
+      type: object
+      description: ''
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
+        topic:
+          description: 'The topic that the notification is published to'
+          type: string
+        routingKey:
+          description: 'Optional criteria that can be used for filtering'
+          type: string
+          nullable: true
+        resource:
+          description: 'The url of the resource that has been changed by the publishing component'
+          type: string
+        action:
+          description: 'The CRUD action that triggered the notification **Create, Read, Update or Delete**'
+          type: string
+      required:
+        - topic
+        - resource
+        - action
+    Notification-write:
+      type: object
+      description: ''
+      required:
+        - topic
+        - resource
+        - action
+      properties:
+        topic:
+          description: 'The topic that the notification is published to'
+          type: string
+        routingKey:
+          description: 'Optional criteria that can be used for filtering'
+          type: string
+          nullable: true
+        resource:
+          description: 'The url of the resource that has been changed by the publishing component'
+          type: string
+        action:
+          description: 'The CRUD action that triggered the notification **Create, Read, Update or Delete**'
+          type: string
+    'Notification:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
+        topic:
+          description: 'The topic that the notification is published to'
+          type: string
+        routingKey:
+          description: 'Optional criteria that can be used for filtering'
+          type: string
+          nullable: true
+        resource:
+          description: 'The url of the resource that has been changed by the publishing component'
+          type: string
+        action:
+          description: 'The CRUD action that triggered the notification **Create, Read, Update or Delete**'
+          type: string
+      required:
+        - topic
+        - resource
+        - action
+    'Notification:jsonld-write':
+      type: object
+      description: ''
+      required:
+        - topic
+        - resource
+        - action
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        topic:
+          description: 'The topic that the notification is published to'
+          type: string
+        routingKey:
+          description: 'Optional criteria that can be used for filtering'
+          type: string
+          nullable: true
+        resource:
+          description: 'The url of the resource that has been changed by the publishing component'
+          type: string
+        action:
+          description: 'The CRUD action that triggered the notification **Create, Read, Update or Delete**'
+          type: string
+    Subscription-read:
+      type: object
+      description: ''
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
+        callback:
+          description: 'The url that should be touched when this subscription is triggered'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        secret:
+          description: 'The key to be used to authorize with the callback'
+          type: string
+          nullable: true
+        topic:
+          description: 'The topic that the subscription is subscribed to'
+          type: string
+        dateCreated:
+          description: 'The date and time the token was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The date and time the token was last modified'
+          type: string
+          format: date-time
+          nullable: true
+      required:
+        - callback
+        - topic
+    Subscription-write:
+      type: object
+      description: ''
+      required:
+        - callback
+        - topic
+      properties:
+        callback:
+          description: 'The url that should be touched when this subscription is triggered'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        secret:
+          description: 'The key to be used to authorize with the callback'
+          type: string
+          nullable: true
+        topic:
+          description: 'The topic that the subscription is subscribed to'
+          type: string
+    'Subscription:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
+        callback:
+          description: 'The url that should be touched when this subscription is triggered'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        secret:
+          description: 'The key to be used to authorize with the callback'
+          type: string
+          nullable: true
+        topic:
+          description: 'The topic that the subscription is subscribed to'
+          type: string
+        dateCreated:
+          description: 'The date and time the token was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The date and time the token was last modified'
+          type: string
+          format: date-time
+          nullable: true
+      required:
+        - callback
+        - topic
+    'Subscription:jsonld-write':
+      type: object
+      description: ''
+      required:
+        - callback
+        - topic
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        callback:
+          description: 'The url that should be touched when this subscription is triggered'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        secret:
+          description: 'The key to be used to authorize with the callback'
+          type: string
+          nullable: true
+        topic:
+          description: 'The topic that the subscription is subscribed to'
+          type: string
 definitions:
+  Notification-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      topic:
+        description: 'The topic that the notification is published to'
+        type: string
+      routingKey:
+        description: 'Optional criteria that can be used for filtering'
+        type: string
+        example: '4e6b3e77-c790-4414-8b34-fccc7d56762a.#.status=rejected'
+      resource:
+        description: 'The url of the resource that has been changed by the publishing component'
+        type: string
+        example: 'https://dev.zuid-drecht.nl/vrc/4e6b3e77-c790-4414-8b34-fccc7d56762a'
+      action:
+        description: 'The CRUD action that triggered the notification **Create, Read, Update or Delete**'
+        type: string
+    required:
+      - topic
+      - resource
+      - action
+  Notification-write:
+    properties:
+      topic:
+        description: 'The topic that the notification is published to'
+        type: string
+      routingKey:
+        description: 'Optional criteria that can be used for filtering'
+        type: string
+        example: '4e6b3e77-c790-4414-8b34-fccc7d56762a.#.status=rejected'
+      resource:
+        description: 'The url of the resource that has been changed by the publishing component'
+        type: string
+        example: 'https://dev.zuid-drecht.nl/vrc/4e6b3e77-c790-4414-8b34-fccc7d56762a'
+      action:
+        description: 'The CRUD action that triggered the notification **Create, Read, Update or Delete**'
+        type: string
+    required:
+      - topic
+      - resource
+      - action
+  Subscription-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      callback:
+        description: 'The url that should be touched when this subscription is triggered'
+        type: string
+        example: 'https://dev.zuid-drecht.nl/api/v1/ias/web_hook'
+        format: url
+      secret:
+        description: 'The key to be used to authorize with the callback'
+        type: string
+      topic:
+        description: 'The topic that the subscription is subscribed to'
+        type: string
+      dateCreated:
+        description: 'The date and time the token was created'
+        type: \DateTime
+      dateModified:
+        description: 'The date and time the token was last modified'
+        type: \DateTime
+    required:
+      - callback
+      - topic
+  Subscription-write:
+    properties:
+      callback:
+        description: 'The url that should be touched when this subscription is triggered'
+        type: string
+        example: 'https://dev.zuid-drecht.nl/api/v1/ias/web_hook'
+        format: url
+      secret:
+        description: 'The key to be used to authorize with the callback'
+        type: string
+      topic:
+        description: 'The topic that the subscription is subscribed to'
+        type: string
+    required:
+      - callback
+      - topic
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-12-14 09:15:12'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-12-14 09:15:12'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+    required: []
   AuditTrail-read:
     properties:
       id:
@@ -2439,12 +4737,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-12-01 09:11:35'
+        example: '2020-12-14 09:15:12'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-12-01 09:11:35'
+        example: '2020-12-14 09:15:12'
     required: []
   AuditTrail-write:
     properties:
@@ -2454,68 +4752,27 @@ definitions:
         example: 'This log line looks suspicius'
         maxLength: 2555
     required: []
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-12-01 09:11:35'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-12-01 09:11:35'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-    required: []
 tags:
   -
-    name: AuditTrail
+    name: Notification
+    description: |
+      
+      
+      
+  -
+    name: Subscription
+    description: |
+      
+      
+      
+  -
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: ChangeLog
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
@@ -2526,20 +4783,20 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the AuditTrail resource'
+      write: 'write right to the AuditTrail resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the AuditTrail resource'
+      write: 'write right to the AuditTrail resource'
 host: irc.zaakonline.nl
 servers:
   -
     name: conduction.nl
-    url: pc.dev.conduction.nl
+    url: nrc.dev.conduction.nl
 externalDocs:
   -
     description: 'OAS Documentatie'

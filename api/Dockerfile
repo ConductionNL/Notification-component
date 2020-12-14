@@ -39,6 +39,10 @@ COPY src src/
 COPY templates templates/
 COPY translations translations/
 
+#RUN apk add --no-cache --virtual .build-deps rabbitmq-c rabbitmq-c-dev libssl-dev; \
+#	pecl install amqp; \
+#	docker-php-ext-enable amqp
+
 RUN set -eux; \
 	mkdir -p var/cache var/log; \
 	composer dump-autoload --classmap-authoritative --no-dev; \

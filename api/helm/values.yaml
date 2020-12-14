@@ -4,20 +4,20 @@
 
 settings:
   registryBase: docker.io/conduction
-  projectName: pc
-  name: pc
-  title: Proto component commonground
+  projectName: nrc
+  name: nrc
+  title: Notification Component
   version: V1.0
   majorVersion: v1
-  id: 
+  id: 0a179455-84fe-4d7d-a322-be414613d412
   description: 'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'
   type: component
   repro: https://github.com/ConductionNL/proto-component
-  demo: pc.zaakonline.nl
-  container: https://hub.docker.com/repository/docker/conduction/pc-php
+  demo: nrc.zaakonline.nl
+  container: https://hub.docker.com/repository/docker/conduction/nrc-php
   domain: conduction.nl
-  subdomain: pc
-  subpath: pc
+  subdomain: nrc
+  subpath: nrc
   subpathRouting: true
   organisationName: Conduction
   email: info@conduction.nl

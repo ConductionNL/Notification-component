@@ -40,7 +40,7 @@ api_platform:
     
     version: '%env(APP_VERSION)%'  
     
-    # Lets configure the api platform bundle to display the docs in confrmation with common ground standards 
+    # Lets configure the api platform bundle to display the docs in confirmation with common ground standards 
     show_webby: false
     enable_swagger_ui: false
     enable_re_doc: true
