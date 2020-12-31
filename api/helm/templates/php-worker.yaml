@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.settings.name }}-php
+  name: {{ .Values.settings.name }}-worker
   labels:
-    app.kubernetes.io/name: {{ .Values.settings.name }}-php
+    app.kubernetes.io/name: {{ .Values.settings.name }}-worker
     app.kubernetes.io/part-of: {{ .Values.settings.name }}
     helm.sh/chart: {{ include "chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
@@ -11,27 +11,28 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ .Values.settings.name }}-php
-  replicas: {{ .Values.php.replicaCount }}
+      app.kubernetes.io/name: {{ .Values.settings.name }}-worker
+  replicas: 1
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ .Values.settings.name }}-php
+        app.kubernetes.io/name: {{ .Values.settings.name }}-worker
         app.kubernetes.io/part-of: {{ .Values.settings.name }}
         helm.sh/chart: {{ include "chart" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/managed-by: {{ .Release.Service }}
     spec:
       containers:
-        - name: {{ .Values.settings.name }}-php
+        - name: {{ .Values.settings.name }}-worker
         {{ if eq .Values.settings.env "prod"}}
           image: "{{ .Values.settings.registryBase }}/{{ .Values.settings.projectName }}-php:latest"
         {{ else }}
           image: "{{ .Values.settings.registryBase }}/{{ .Values.settings.projectName }}-php:{{ .Values.settings.env }}"
         {{ end }}
           imagePullPolicy: {{ .Values.settings.pullPolicy }}
-          ports:
-            - containerPort: 9000
+          args:
+              - bin/console
+              - messenger:consume async -vv
           env:
             - name: JWT_SECRET_KEY
               value: '%kernel.project_dir%/config/jwt/private.pem'
@@ -264,26 +265,27 @@ spec:
               {{- end }}
               
             #RabbitMQ
-              - name: RABBITMQ_HOST
-                valueFrom:
-                  configMapKeyRef:
-                    name: {{ template "fullname" . }}
-                    key: rabbitmq-host
-              - name: RABBITMQ_PORT
-                valueFrom:
-                  configMapKeyRef:
-                    name: {{ template "fullname" . }}
-                    key: rabbitmq-port
-              - name: RABBITMQ_USERNAME
-                valueFrom:
-                  secretKeyRef:
-                    name: {{ template "fullname" . }}
-                    key: rabbitmq_username
-              - name: RABBITMQ_USERNAME
-                valueFrom:
-                  secretKeyRef:
-                    name: {{ template "fullname" . }}
-                    key: rabbitmq_password
+            - name: RABBITMQ_HOST
+              valueFrom:
+                configMapKeyRef:
+                      name: {{ template "fullname" . }}
+                      key: rabbitmq-host
+            - name: RABBITMQ_PORT
+              valueFrom:
+                configMapKeyRef:
+                      name: {{ template "fullname" . }}
+                      key: rabbitmq-port                 
+            - name: RABBITMQ_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: rabbitmq_username
+            - name: RABBITMQ_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: rabbitmq_password
+              
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}

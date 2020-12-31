@@ -3,10 +3,10 @@ entries:
   nrc:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2020-12-14T10:55:53.4810359Z"
+    created: "2020-12-31T13:10:17.3250999Z"
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
-    digest: b311e4f90c4c8a101e8472ebca92044b16960e40d23aeb6dd95edcff6c109b35
+    digest: 6dda96e1c32ccf468dc49276c2d6383c30c940dc333875f6a9958d128950535d
     home: nrc.zaakonline.nl
     icon: nrc.zaakonline.nl
     name: nrc
@@ -18,7 +18,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2020-12-14T10:55:53.4951814Z"
+    created: "2020-12-31T13:10:17.3352375Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -47,4 +47,35 @@ entries:
     urls:
     - charts/postgresql-10.1.1.tgz
     version: 10.1.1
-generated: "2020-12-14T10:55:53.4645917Z"
+  rabbitmq:
+  - annotations:
+      category: Infrastructure
+    apiVersion: v2
+    appVersion: 3.8.9
+    created: "2020-12-31T13:10:17.3516518Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: Open source message broker software that implements the Advanced
+      Message Queuing Protocol (AMQP)
+    digest: 9e1aa941274a5bd3dced7ba120ffdf308ab7db7271f40603e4a134e74e9adba0
+    home: https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq
+    icon: https://bitnami.com/assets/stacks/rabbitmq/img/rabbitmq-stack-220x234.png
+    keywords:
+    - rabbitmq
+    - message queue
+    - AMQP
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    name: rabbitmq
+    sources:
+    - https://github.com/bitnami/bitnami-docker-rabbitmq
+    - https://www.rabbitmq.com
+    urls:
+    - charts/rabbitmq-8.6.1.tgz
+    version: 8.6.1
+generated: "2020-12-31T13:10:17.3081109Z"
