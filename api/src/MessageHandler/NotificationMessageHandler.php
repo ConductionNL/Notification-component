@@ -28,7 +28,6 @@ class NotificationMessageHandler implements MessageHandlerInterface
         $this->subscriptionRepository = $subscriptionRepository;
 
         $this->headers = [
-            'Accept'        => 'application/ld+json',
             'Content-Type'  => 'application/json',
 
             // NLX

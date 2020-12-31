@@ -3,11 +3,11 @@ version: '3.5'
 x-cache:
   &cache
   cache_from:
-    - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-php
-    - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nginx
-    - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-varnish
-    - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-phpdoc
-    - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-sphinx
+      - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-php
+      - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nginx
+      - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-varnish
+      - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-phpdoc
+      - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-sphinx
 
 services:
   php:
@@ -79,8 +79,13 @@ services:
       - APP_COMMONGROUND_ZTC_LOCATION=${APP_COMMONGROUND_ZTC_LOCATION}
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
     ports:
       - "82:80"
+
 
   api:
     &nginx
@@ -224,6 +229,9 @@ services:
     
   rabbitmq:
     image: rabbitmq:latest
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USERNAME}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
 
   # From: tsgkadot/docker-doxygen    
   sphinx:

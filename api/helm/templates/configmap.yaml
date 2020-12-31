@@ -1,3 +1,4 @@
+{{- $rabbitmqServiceName := include "rabbitmq.fullname" . -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -51,3 +52,6 @@ data:
   varnish-url: {{ if .Values.varnish.enabled }}http://varnish{{ else }}{{ .Values.varnish.url | quote }}{{ end }}
   mercure-publish-url: {{ .Values.mercure.publishUrl | quote }}
   mercure-subscribe-url: {{ .Values.mercure.subscribeUrl | quote }}
+  
+  rabbitmq-host: {{ $rabbitmqServiceName | quote }}
+  rabbitmq-port: {{ .Values.rabbitmq.service.port | quote }}

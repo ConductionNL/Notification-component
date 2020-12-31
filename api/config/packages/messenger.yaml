@@ -1,6 +1,6 @@
 parameters:
-#    env(MESSENGER_TRANSPORT_DSN): amqp://guest:guest@rabbitmq:5672/%2f/messages
-    env(MESSENGER_TRANSPORT_DSN): doctrine://default
+    env(MESSENGER_TRANSPORT_DSN): "amqp://%env(RABBITMQ_USERNAME)%:%env(RABBITMQ_PASSWORD)%@%env(RABBITMQ_HOST)%:%env(RABBITMQ_PORT)%/%2f/messages"
+#    env(MESSENGER_TRANSPORT_DSN): doctrine://default
 framework:
     messenger:
         # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
@@ -8,10 +8,10 @@ framework:
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
-#            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
             # failed: 'doctrine://default?queue_name=failed'
-            sync: 'sync://'
+#            sync: 'sync://'
 
         routing:
             # Route your messages to the transports
-             'App\Message\NotificationMessage': sync
+             'App\Message\NotificationMessage': async

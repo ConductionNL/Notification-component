@@ -39,9 +39,10 @@ COPY src src/
 COPY templates templates/
 COPY translations translations/
 
-#RUN apk add --no-cache --virtual .build-deps rabbitmq-c rabbitmq-c-dev libssl-dev; \
-#	pecl install amqp; \
-#	docker-php-ext-enable amqp
+RUN apk add --no-cache --virtual .build-deps rabbitmq-c rabbitmq-c-dev openssl-dev; \
+	apk add --no-cache --update --virtual .phpize-deps $PHPIZE_DEPS; \
+	pecl install amqp; \
+	docker-php-ext-enable amqp
 
 RUN set -eux; \
 	mkdir -p var/cache var/log; \

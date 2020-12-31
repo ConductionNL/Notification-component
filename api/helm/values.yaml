@@ -98,6 +98,11 @@ postgresql:
 #    repository: postgres
 #    tag: alpine
 
+rabbitmq:
+    auth:
+        username: 'example'
+        password: '!changeMe!'
+
 mercure:
   enabled: true
   publishUrl: http://mercure/hub
