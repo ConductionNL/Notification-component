@@ -280,7 +280,7 @@ spec:
                 secretKeyRef:
                   name: {{ template "fullname" . }}
                   key: rabbitmq_username
-            - name: RABBITMQ_USERNAME
+            - name: RABBITMQ_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ template "fullname" . }}
