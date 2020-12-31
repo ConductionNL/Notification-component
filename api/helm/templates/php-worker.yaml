@@ -32,7 +32,9 @@ spec:
           imagePullPolicy: {{ .Values.settings.pullPolicy }}
           args:
               - bin/console
-              - messenger:consume async -vv
+              - messenger:consume
+              - async
+              - -vv
           env:
             - name: JWT_SECRET_KEY
               value: '%kernel.project_dir%/config/jwt/private.pem'
