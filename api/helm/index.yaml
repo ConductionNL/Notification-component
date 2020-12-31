@@ -3,10 +3,10 @@ entries:
   nrc:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2020-12-31T13:10:17.3250999Z"
+    created: "2020-12-31T13:42:37.3042196Z"
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
-    digest: 6dda96e1c32ccf468dc49276c2d6383c30c940dc333875f6a9958d128950535d
+    digest: f8285e9e9965c2cfcbb0fb80f6f54ae86febfa5e0030121cf8070f179555e89d
     home: nrc.zaakonline.nl
     icon: nrc.zaakonline.nl
     name: nrc
@@ -18,7 +18,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2020-12-31T13:10:17.3352375Z"
+    created: "2020-12-31T13:42:37.3271886Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -52,7 +52,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 3.8.9
-    created: "2020-12-31T13:10:17.3516518Z"
+    created: "2020-12-31T13:42:37.3448441Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -78,4 +78,4 @@ entries:
     urls:
     - charts/rabbitmq-8.6.1.tgz
     version: 8.6.1
-generated: "2020-12-31T13:10:17.3081109Z"
+generated: "2020-12-31T13:42:37.2820453Z"

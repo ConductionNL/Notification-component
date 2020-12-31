@@ -102,6 +102,8 @@ rabbitmq:
     auth:
         username: 'example'
         password: '!changeMe!'
+    service:
+        port: 5672
 
 mercure:
   enabled: true
