@@ -53,5 +53,5 @@ data:
   mercure-publish-url: {{ .Values.mercure.publishUrl | quote }}
   mercure-subscribe-url: {{ .Values.mercure.subscribeUrl | quote }}
   
-  rabbitmq-host: {{ printf %s-rabbitmq $rabbitmqServiceName | quote }}
+  rabbitmq-host: {{ printf "%s-rabbitmq" $rabbitmqServiceName | quote }}
   rabbitmq-port: {{ .Values.rabbitmq.service.port | quote }}
