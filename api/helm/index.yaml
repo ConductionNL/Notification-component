@@ -1,24 +1,37 @@
 apiVersion: v1
 entries:
-  nrc:
+  notification-component:
   - apiVersion: v1
     appVersion: V1.0
-    created: "2020-12-31T14:12:33.904745Z"
+    created: "2021-03-18T09:23:33.8878994Z"
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
-    digest: 13dfa94959c71982eb297fa27de4b227bfc2e62376fca081bee297482878ad85
-    home: nrc.zaakonline.nl
-    icon: nrc.zaakonline.nl
-    name: nrc
+    digest: c06b993296768ae1f02bab97af179ec19a9733728252a1505bbca62b5ec11f38
+    home: https://www.conduction.nl
+    icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
+    keywords:
+    - commonground
+    - haven
+    - nlx
+    - component
+    maintainers:
+    - email: ruben@conduction.nl
+      name: Ruben van der Linde
+    - email: info@conduction.nl
+      name: Conduction
+    name: notification-component
+    sources:
+    - https://commonground.conduction.nl/
+    - https://www.commonground.nl/
     urls:
-    - nrc-0.1.0.tgz
+    - notification-component-0.1.0.tgz
     version: 0.1.0
   postgresql:
   - annotations:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2020-12-31T14:12:33.9168825Z"
+    created: "2021-03-18T09:23:33.915543Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -52,7 +65,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 3.8.9
-    created: "2020-12-31T14:12:33.9296197Z"
+    created: "2021-03-18T09:23:33.9533785Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -78,4 +91,4 @@ entries:
     urls:
     - charts/rabbitmq-8.6.1.tgz
     version: 8.6.1
-generated: "2020-12-31T14:12:33.8855429Z"
+generated: "2021-03-18T09:23:33.843328Z"
