@@ -5,12 +5,12 @@ info:
   description: |
     API Details
     - Component: 
-    - Reference: proto-component
+    - Reference: notification-component
     - Enviroment: dev
     - Version: V1.0
-    - Repository: [online](https://github.com/ConductionNL/proto-component) / [zip](https://github.com/ConductionNL/proto-component/archive/master.zip)
+    - Repository: [online](https://github.com/ConductionNL/notification-component) / [zip](https://github.com/ConductionNL/notification-component/archive/master.zip)
     - Docker Image: [online]() 
-    - Datamodel: [postman](schema/proto-component.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
+    - Datamodel: [postman](schema/notification-component.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
     
     Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
     
@@ -4578,49 +4578,6 @@ components:
           description: 'The topic that the subscription is subscribed to'
           type: string
 definitions:
-  Subscription-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      callback:
-        description: 'The url that should be touched when this subscription is triggered'
-        type: string
-        example: 'https://dev.zuid-drecht.nl/api/v1/ias/web_hook'
-        format: url
-      secret:
-        description: 'The key to be used to authorize with the callback'
-        type: string
-      topic:
-        description: 'The topic that the subscription is subscribed to'
-        type: string
-      dateCreated:
-        description: 'The date and time the token was created'
-        type: \DateTime
-      dateModified:
-        description: 'The date and time the token was last modified'
-        type: \DateTime
-    required:
-      - callback
-      - topic
-  Subscription-write:
-    properties:
-      callback:
-        description: 'The url that should be touched when this subscription is triggered'
-        type: string
-        example: 'https://dev.zuid-drecht.nl/api/v1/ias/web_hook'
-        format: url
-      secret:
-        description: 'The key to be used to authorize with the callback'
-        type: string
-      topic:
-        description: 'The topic that the subscription is subscribed to'
-        type: string
-    required:
-      - callback
-      - topic
   Notification-read:
     properties:
       id:
@@ -4672,59 +4629,49 @@ definitions:
       - topic
       - resource
       - action
-  ChangeLog-read:
+  Subscription-read:
     properties:
       id:
-        description: 'The UUID identifier of this object'
+        description: 'The UUID identifier of this resource'
         type: string
         example: e2984465-190a-4562-829e-a8cca81aa35d
         format: uuid
-      note:
-        description: 'A note conserning this log lin'
+      callback:
+        description: 'The url that should be touched when this subscription is triggered'
         type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
+        example: 'https://dev.zuid-drecht.nl/api/v1/ias/web_hook'
+        format: url
+      secret:
+        description: 'The key to be used to authorize with the callback'
         type: string
-      objectId:
-        description: ''
+      topic:
+        description: 'The topic that the subscription is subscribed to'
         type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
       dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2021-03-18 08:49:01'
+        description: 'The date and time the token was created'
+        type: \DateTime
       dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2021-03-18 08:49:01'
-    required: []
-  ChangeLog-write:
+        description: 'The date and time the token was last modified'
+        type: \DateTime
+    required:
+      - callback
+      - topic
+  Subscription-write:
     properties:
-      note:
-        description: 'A note conserning this log lin'
+      callback:
+        description: 'The url that should be touched when this subscription is triggered'
         type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-    required: []
+        example: 'https://dev.zuid-drecht.nl/api/v1/ias/web_hook'
+        format: url
+      secret:
+        description: 'The key to be used to authorize with the callback'
+        type: string
+      topic:
+        description: 'The topic that the subscription is subscribed to'
+        type: string
+    required:
+      - callback
+      - topic
   AuditTrail-read:
     properties:
       id:
@@ -4829,12 +4776,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2021-03-18 08:49:01'
+        example: '2021-03-18 09:10:56'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2021-03-18 08:49:01'
+        example: '2021-03-18 09:10:56'
     required: []
   AuditTrail-write:
     properties:
@@ -4844,13 +4791,60 @@ definitions:
         example: 'This log line looks suspicius'
         maxLength: 2555
     required: []
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2021-03-18 09:10:56'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2021-03-18 09:10:56'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+    required: []
 tags:
-  -
-    name: Subscription
-    description: |
-      
-      
-      
   -
     name: Notification
     description: |
@@ -4858,13 +4852,19 @@ tags:
       
       
   -
-    name: ChangeLog
+    name: Subscription
+    description: |
+      
+      
+      
+  -
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: AuditTrail
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
@@ -4875,20 +4875,20 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
 host: irc.zaakonline.nl
 servers:
   -
     name: conduction.nl
-    url: proto-component.dev.conduction.nl
+    url: notification-component.dev.conduction.nl
 externalDocs:
   -
     description: 'OAS Documentatie'

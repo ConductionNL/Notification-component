@@ -4,15 +4,15 @@
 
 settings:
   registryBase: ghcr.io/conductionnl
-  projectName: proto-component
-  name: proto-component
+  projectName: notification-component
+  name: notification-component
   version: V1.0
   majorVersion: v1
   description: 'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'
-  repro: https://github.com/ConductionNL/proto-component
+  repro: https://github.com/ConductionNL/notification-component
   demo: nrc.zaakonline.nl
   domain: conduction.nl
-  subdomain: proto-component
+  subdomain: notification-component
   subpath: nrc
   subpathRouting: true
   env: dev
