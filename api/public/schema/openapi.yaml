@@ -1,16 +1,16 @@
 openapi: 3.0.2
 info:
-  title: 'Notification Component'
+  title: ''
   version: V1.0
   description: |
     API Details
-    - Component: Notification Component
-    - Reference: nrc
+    - Component: 
+    - Reference: proto-component
     - Enviroment: dev
     - Version: V1.0
     - Repository: [online](https://github.com/ConductionNL/proto-component) / [zip](https://github.com/ConductionNL/proto-component/archive/master.zip)
-    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/nrc-php) 
-    - Datamodel: [postman](schema/nrc.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
+    - Docker Image: [online]() 
+    - Datamodel: [postman](schema/proto-component.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
     
     Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
     
@@ -4578,6 +4578,49 @@ components:
           description: 'The topic that the subscription is subscribed to'
           type: string
 definitions:
+  Subscription-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      callback:
+        description: 'The url that should be touched when this subscription is triggered'
+        type: string
+        example: 'https://dev.zuid-drecht.nl/api/v1/ias/web_hook'
+        format: url
+      secret:
+        description: 'The key to be used to authorize with the callback'
+        type: string
+      topic:
+        description: 'The topic that the subscription is subscribed to'
+        type: string
+      dateCreated:
+        description: 'The date and time the token was created'
+        type: \DateTime
+      dateModified:
+        description: 'The date and time the token was last modified'
+        type: \DateTime
+    required:
+      - callback
+      - topic
+  Subscription-write:
+    properties:
+      callback:
+        description: 'The url that should be touched when this subscription is triggered'
+        type: string
+        example: 'https://dev.zuid-drecht.nl/api/v1/ias/web_hook'
+        format: url
+      secret:
+        description: 'The key to be used to authorize with the callback'
+        type: string
+      topic:
+        description: 'The topic that the subscription is subscribed to'
+        type: string
+    required:
+      - callback
+      - topic
   Notification-read:
     properties:
       id:
@@ -4629,49 +4672,6 @@ definitions:
       - topic
       - resource
       - action
-  Subscription-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this resource'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      callback:
-        description: 'The url that should be touched when this subscription is triggered'
-        type: string
-        example: 'https://dev.zuid-drecht.nl/api/v1/ias/web_hook'
-        format: url
-      secret:
-        description: 'The key to be used to authorize with the callback'
-        type: string
-      topic:
-        description: 'The topic that the subscription is subscribed to'
-        type: string
-      dateCreated:
-        description: 'The date and time the token was created'
-        type: \DateTime
-      dateModified:
-        description: 'The date and time the token was last modified'
-        type: \DateTime
-    required:
-      - callback
-      - topic
-  Subscription-write:
-    properties:
-      callback:
-        description: 'The url that should be touched when this subscription is triggered'
-        type: string
-        example: 'https://dev.zuid-drecht.nl/api/v1/ias/web_hook'
-        format: url
-      secret:
-        description: 'The key to be used to authorize with the callback'
-        type: string
-      topic:
-        description: 'The topic that the subscription is subscribed to'
-        type: string
-    required:
-      - callback
-      - topic
   ChangeLog-read:
     properties:
       id:
@@ -4710,12 +4710,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-12-31 14:07:51'
+        example: '2021-03-18 08:49:01'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-12-31 14:07:51'
+        example: '2021-03-18 08:49:01'
     required: []
   ChangeLog-write:
     properties:
@@ -4829,12 +4829,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-12-31 14:07:51'
+        example: '2021-03-18 08:49:01'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-12-31 14:07:51'
+        example: '2021-03-18 08:49:01'
     required: []
   AuditTrail-write:
     properties:
@@ -4846,13 +4846,13 @@ definitions:
     required: []
 tags:
   -
-    name: Notification
+    name: Subscription
     description: |
       
       
       
   -
-    name: Subscription
+    name: Notification
     description: |
       
       
@@ -4888,7 +4888,7 @@ host: irc.zaakonline.nl
 servers:
   -
     name: conduction.nl
-    url: nrc.dev.conduction.nl
+    url: proto-component.dev.conduction.nl
 externalDocs:
   -
     description: 'OAS Documentatie'
