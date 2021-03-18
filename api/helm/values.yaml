@@ -63,6 +63,14 @@ commonground:
     location: https://conduction.nl/eherkenning
   digispoof:
     location: https://conduction.nl/digispoof
+    
+rabbitmq:
+    auth:
+        username: 'example'
+        password: '!changeMe!'
+        existingPasswordSecret: nrc-dev-nrc
+    service:
+        port: 5672
 
 nginx:
   repository: docker.io/conduction/protocomponent-nginx
