@@ -188,26 +188,26 @@ spec:
               {{- end }}
 
                 #RabbitMQ
-          - name: RABBITMQ_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: {{ template "fullname" . }}
-                key: rabbitmq-host
-          - name: RABBITMQ_PORT
-            valueFrom:
-              configMapKeyRef:
-                name: {{ template "fullname" . }}
-                key: rabbitmq-port
-          - name: RABBITMQ_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: {{ template "fullname" . }}
-                key: rabbitmq-username
-          - name: RABBITMQ_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: {{ template "fullname" . }}
-                key: rabbitmq-password
+            - name: RABBITMQ_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: rabbitmq-host
+            - name: RABBITMQ_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: rabbitmq-port
+            - name: RABBITMQ_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: rabbitmq-username
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: rabbitmq-password
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}
