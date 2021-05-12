@@ -38,7 +38,7 @@ data:
   eherkenning-location: {{ .Values.commonground.eherkenning.location }}
   {{ end }}
 
-  rabbitmq-host: {{ printf "%s-rabbitmq" $rabbitmqServiceName | quote }}
+  rabbitmq-host: {{ printf "%s" $rabbitmqServiceName | quote }}
   rabbitmq-port: {{ .Values.rabbitmq.service.port | quote }}
 
   cache: {{ .Values.settings.cache | quote }}

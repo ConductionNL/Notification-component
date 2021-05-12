@@ -68,7 +68,6 @@ rabbitmq:
     auth:
         username: 'example'
         password: '!changeMe!'
-        existingPasswordSecret: nrc-dev-nrc
     service:
         port: 5672
 
