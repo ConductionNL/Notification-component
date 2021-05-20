@@ -16,7 +16,7 @@ framework:
                     delay: 225000
                     multiplier: 2
                     max_delay: 14400000
-                failed: 'doctrine://default'
+            failed: 'doctrine://default'
             # failed: 'doctrine://default?queue_name=failed'
 #            sync: 'sync://'
 
