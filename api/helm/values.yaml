@@ -36,13 +36,6 @@ redis:
   usePassword: false
   enabled: false
   pullPolicy: IfNotPresent
-  
-rabbitmq:
-    auth:
-        username: 'example'
-        password: '!changeMe!'
-    service:
-        port: 5672
 
 nginx:
   repository: docker.io/conduction/protocomponent-nginx
@@ -67,7 +60,7 @@ postgresql:
 
 ingress:
   enabled: false
-  hostname: .local
+  hostname: notification-component.local
   path: /
   annotations:
     # kubernetes.io/ingress.global-static-ip-name: chart-ip
