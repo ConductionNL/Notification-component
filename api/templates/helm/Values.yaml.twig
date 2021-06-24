@@ -99,10 +99,10 @@ postgresql:
 #    tag: alpine
 
 rabbitmq:
-    host:
     auth:
         username: 'example'
         password: '!changeMe!'
+        existingPasswordSecret: {{ app_name }}-{{ app_env }}-{{ app_name }}
     service:
         port: 5672
 
