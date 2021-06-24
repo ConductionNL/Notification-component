@@ -5,7 +5,7 @@ entries:
       artifacthub.io/containsSecurityUpdates: "true"
     apiVersion: v2
     appVersion: V1.0
-    created: "2021-06-24T15:52:55.0614785+02:00"
+    created: "2021-06-24T14:01:04.0359089Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -15,8 +15,9 @@ entries:
       name: redis
       repository: https://charts.bitnami.com/bitnami
       version: 12.7.7
-    description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.
-    digest: 6142fa146b437caa0414715b033eb7725af18ba5c8acc299394da3b1eec9b071
+    description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
+      beschikbaar.
+    digest: b6cf67f04a973c0f6824858b5d9a670631df520817463a9f88ea6c7f68bcd158
     home: https://www.conduction.nl
     icon: https://conductionnl.github.io/images/conduction_avatar_blue_on_transparant.svg
     keywords:
@@ -41,12 +42,13 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 11.10.0
-    created: "2021-06-24T15:52:55.0665641+02:00"
+    created: "2021-06-24T14:01:04.0677473Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
       version: 1.x.x
-    description: Chart for PostgreSQL, an object-relational database management system (ORDBMS) with an emphasis on extensibility and on standards-compliance.
+    description: Chart for PostgreSQL, an object-relational database management system
+      (ORDBMS) with an emphasis on extensibility and on standards-compliance.
     digest: eebe8f456cf98d5927a35666d1d899174dc4d3e09f26788033f761527bc90749
     home: https://github.com/bitnami/charts/tree/master/bitnami/postgresql
     icon: https://bitnami.com/assets/stacks/postgresql/img/postgresql-stack-110x117.png
@@ -74,14 +76,15 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 3.8.9
-    created: "2021-06-24T15:52:55.0696525+02:00"
+    created: "2021-06-24T14:01:04.0995729Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
       tags:
       - bitnami-common
       version: 1.x.x
-    description: Open source message broker software that implements the Advanced Message Queuing Protocol (AMQP)
+    description: Open source message broker software that implements the Advanced
+      Message Queuing Protocol (AMQP)
     digest: 9e1aa941274a5bd3dced7ba120ffdf308ab7db7271f40603e4a134e74e9adba0
     home: https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq
     icon: https://bitnami.com/assets/stacks/rabbitmq/img/rabbitmq-stack-220x234.png
@@ -104,14 +107,16 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 6.0.11
-    created: "2021-06-24T15:52:55.073329+02:00"
+    created: "2021-06-24T14:01:04.1295952Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
       tags:
       - bitnami-common
       version: 1.x.x
-    description: Open source, advanced key-value store. It is often referred to as a data structure server since keys can contain strings, hashes, lists, sets and sorted sets.
+    description: Open source, advanced key-value store. It is often referred to as
+      a data structure server since keys can contain strings, hashes, lists, sets
+      and sorted sets.
     digest: 2d70861d16fc410ed6d6c818b97f7b0d519031147e5c7b42c5691d4c38742c44
     home: https://github.com/bitnami/charts/tree/master/bitnami/redis
     icon: https://bitnami.com/assets/stacks/redis/img/redis-stack-220x234.png
@@ -131,4 +136,4 @@ entries:
     urls:
     - charts/redis-12.7.7.tgz
     version: 12.7.7
-generated: "2021-06-24T15:52:54.9946811+02:00"
+generated: "2021-06-24T14:01:03.9556269Z"
