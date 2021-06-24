@@ -25,8 +25,14 @@
     },
     "require-dev" : {
         "api-platform/schema-generator": "^2.1",
-        "phpunit/phpunit": "^9",
+        "phar-io/manifest": "^2.0.1",
+        "phar-io/version": "^3.0.1",
+        "phpspec/prophecy": "^1.11.1",
+        "phpunit/php-code-coverage": "^9",
+        "phpunit/phpunit": "^9.3",
+        "sebastian/global-state": "^5.0",
         "symfony/maker-bundle": "^1.11",
+        "symfony/phpunit-bridge": "^5.1",
         "symfony/profiler-pack": "^1.0"
     },
     "config" : {
