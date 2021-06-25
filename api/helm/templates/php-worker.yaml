@@ -23,7 +23,7 @@ spec:
         app.kubernetes.io/managed-by: {{ .Release.Service }}
     spec:
       containers:
-        - name: {{ .Release.Name }}-php
+        - name: {{ .Release.Name }}-worker
           image: "{{ .Values.php.image }}:{{ .Values.php.tag }}"
           imagePullPolicy: {{ .Values.php.pullPolicy }}
           args:
