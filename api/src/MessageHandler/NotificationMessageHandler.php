@@ -9,6 +9,8 @@ use App\Message\NotificationMessage;
 use App\Repository\NotificationRepository;
 use App\Repository\SubscriptionRepository;
 use GuzzleHttp\Client;
+use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
@@ -58,6 +60,10 @@ class NotificationMessageHandler implements MessageHandlerInterface
         $topic = $notification->getTopic();
         $subscriptions = $this->subscriptionRepository->findBy(['topic' => $topic]);
 
+        $type = 'com.example.someevent';
+        $source = '/context';
+        $id = $notification->getId()->toString();
+
         foreach($subscriptions as $subscription){
             if($subscription instanceof Subscription)
             {
@@ -69,8 +75,17 @@ class NotificationMessageHandler implements MessageHandlerInterface
                     $headers['Authorization'] = $secret;
                 }
                 $resource = [
-                    'resource'  => $notification->getResource(),
-                    'action'    => $notification->getAction(),
+                    'specversion' => '1.0',
+                    'type'      => $type,
+                    'source'    => $source,
+                    'id'        => $id,
+                    'time'      => new \DateTime('now'),
+                    'datacontenttype' => 'application/json',
+                    'data' =>
+                        [
+                            'resource'  => $notification->getResource(),
+                            'action'    => $notification->getAction(),
+                        ],
                 ];
 
                 $response = $this->messageClient->post(
