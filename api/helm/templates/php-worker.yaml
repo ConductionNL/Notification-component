@@ -27,10 +27,9 @@ spec:
           image: "{{ .Values.php.image }}:{{ .Values.php.tag }}"
           imagePullPolicy: {{ .Values.php.pullPolicy }}
           args:
-              - bin/console
-              - messenger:consume
-              - async
-              - -vv
+              - supervisord
+              - -c
+              - /srv/api/config/supervisord.conf
           env:
               - name: JWT_SECRET_KEY
                 value: '%kernel.project_dir%/config/jwt/private.pem'
