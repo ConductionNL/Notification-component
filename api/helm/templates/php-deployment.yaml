@@ -121,9 +121,12 @@ spec:
                   secretKeyRef:
                       name: {{ template "fullname" . }}
                       key: rabbitmq-password
-            
+
             - name: APP_URL
-              value: https://{{ $.Values.ingress.domain }}/{{ $.Values.ingress.path }}
+              valueFrom:
+                  configMapKeyRef:
+                      key: url
+                      name: {{ template "fullname" . }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}
